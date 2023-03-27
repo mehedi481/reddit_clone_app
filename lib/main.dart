@@ -52,12 +52,15 @@ class _MyAppState extends ConsumerState<MyApp> {
                   getData(ref, data);
                   if (userModel != null) {
                     return loggedInRouter;
+                    //test
                   }
                 }
                 return loggedOutRouter;
               }),
               routeInformationParser: const RoutemasterParser(),
               // home: const LoginScreen(),
+
+
             );
           },
           error: (error, stackTrace) {
