@@ -45,7 +45,7 @@ class _MyAppState extends ConsumerState<MyApp> {
           data: (data) {
             return MaterialApp.router(
               debugShowCheckedModeBanner: false,
-              title: 'Flutter Demo',
+              title: 'Flutter Raddit Clone',
               theme: Pallete.darkModeAppTheme,
               routerDelegate: RoutemasterDelegate(routesBuilder: (context) {
                 if (data != null) {
