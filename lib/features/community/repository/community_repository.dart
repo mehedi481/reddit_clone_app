@@ -43,9 +43,15 @@ class CommunityRepository {
         .map((event) {
       List<CommunityModel> communities = [];
       for (var doc in event.docs) {
-        communities.add(CommunityModel.fromMap(doc.data() as Map<String, dynamic>));
+        communities
+            .add(CommunityModel.fromMap(doc.data() as Map<String, dynamic>));
       }
       return communities;
     });
+  }
+
+  // Get community by name
+  Stream<CommunityModel> getCommunityByName(String name) {
+    return _communities.doc(name).snapshots().map((event) => CommunityModel.fromMap(event.data() as Map<String,dynamic>));
   }
 }

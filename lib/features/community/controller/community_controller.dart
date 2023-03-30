@@ -7,16 +7,19 @@ import 'package:routemaster/routemaster.dart';
 import '../../../core/utils.dart';
 import '../repository/community_repository.dart';
 
+final getCommunityByNameProvider = StreamProvider.family<CommunityModel,String>((ref,String name){
+  return ref.watch(communityControllerProvider.notifier).getCommunityByName(name);
+});
 
 final userCommunityProvider = StreamProvider<List<CommunityModel>>((ref) {
   return ref.watch(communityControllerProvider.notifier).getUserCommunities();
 });
 
-
-final communityControllerProvider = StateNotifierProvider<CommunityController, bool>((ref) {
-  return CommunityController(communityRepository: ref.watch(communityRepositoryProvider), ref: ref);
+final communityControllerProvider =
+    StateNotifierProvider<CommunityController, bool>((ref) {
+  return CommunityController(
+      communityRepository: ref.watch(communityRepositoryProvider), ref: ref);
 });
-
 
 class CommunityController extends StateNotifier<bool> {
   final CommunityRepository _communityRepository;
@@ -53,4 +56,7 @@ class CommunityController extends StateNotifier<bool> {
     final uid = _ref.read(userProvider)?.uid ?? '';
     return _communityRepository.getUserCommunities(uid);
   }
+
+  Stream<CommunityModel> getCommunityByName(String name) =>
+      _communityRepository.getCommunityByName(name);
 }
