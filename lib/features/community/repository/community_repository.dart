@@ -52,6 +52,18 @@ class CommunityRepository {
 
   // Get community by name
   Stream<CommunityModel> getCommunityByName(String name) {
-    return _communities.doc(name).snapshots().map((event) => CommunityModel.fromMap(event.data() as Map<String,dynamic>));
+    return _communities.doc(name).snapshots().map((event) =>
+        CommunityModel.fromMap(event.data() as Map<String, dynamic>));
+  }
+
+  //Edit community
+  FutureVoid editCommunity(CommunityModel communityModel) async {
+    try {
+      return right(_communities.doc(communityModel.name).update(communityModel.toMap()));
+    } on FirebaseException catch (e) {
+      throw e.message!;
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
   }
 }
